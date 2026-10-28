@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = {
+  'white-blood-cell-classification': {
+    title: 'White Blood Cell Classification',
+    category: 'MEDICAL IMAGING',
+    description: 'A computer-vision project focused on classifying white blood cell images.',
+    note: 'This project page is a placeholder for now. Add the dataset, preprocessing pipeline, model architecture, evaluation protocol, confusion matrix and representative predictions when you are ready to document the work.',
+    tags: ['Computer vision', 'Classification'],
+  },
+  'waterpixel-segmentation': {
+    title: 'Waterpixel Segmentation',
+    category: 'IMAGE SEGMENTATION',
+    description: 'An image-processing project exploring waterpixel-based segmentation.',
+    note: 'This project page is a placeholder for now. Add the segmentation pipeline, parameter choices, visual comparisons, evaluation metrics and failure cases when you are ready to document the work.',
+    tags: ['Segmentation', 'Image processing'],
+  },
+  'autonomous-mobile-robot': {
+    title: 'Autonomous Mobile Robot',
+    category: 'ROBOTICS',
+    description: 'A camera-equipped wheeled robot built around a Raspberry Pi for a multi-robot relay challenge.',
+    note: 'This project page is a placeholder for now. Add photos of the robot, the perception and control pipeline, system architecture, the relay task and what you personally implemented.',
+    tags: ['Raspberry Pi', 'Perception', 'Control'],
+  },
+};
+
+export function getStaticPaths() {
+  return Object.entries(projects).map(([slug, project]) => ({
+    params: { slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`${project.title} | Baptiste Lefebvre`} description={project.description}>
+  <header class="nav">
+    <a class="wordmark" href={base} aria-label="Home">BL<span>.</span></a>
+    <nav aria-label="Main navigation">
+      <a href={`${base}#projects`}>Projects</a><a href={`${base}#about`}>About</a><a href={`${base}#contact`}>Contact</a>
+    </nav>
+    <a class="nav-link" href="https://github.com/baptlef" target="_blank" rel="noreferrer">GitHub ↗</a>
+  </header>
+  <main>
+    <a class="back-link" href={`${base}#projects`}>← Back to all projects</a>
+    <section class="page">
+      <div class="eyebrow">{project.category} · PROJECT</div>
+      <h1>{project.title}<span>.</span></h1>
+      <p class="lead">{project.description}</p>
+      <div class="tags">{project.tags.map((tag) => <span>{tag}</span>)}</div>
+      <div class="placeholder">
+        <span class="placeholder-label">PROJECT WRITE-UP IN PROGRESS</span>
+        <h2>Documenting the work</h2>
+        <p>{project.note}</p>
+        <a class="button" href={`${base}#projects`}>Back to projects <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .nav{max-width:1180px;margin:0 auto;padding:25px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.wordmark{font:800 25px 'Manrope',sans-serif;letter-spacing:-2px}.wordmark span,h1 span{color:var(--green)}nav{display:flex;gap:32px}nav a,.nav-link{color:#656961;font-size:13px}nav a:hover,.nav-link:hover{color:var(--green)}main{max-width:1000px;margin:0 auto;padding:0 32px}.back-link{display:inline-block;margin:30px 0;color:#657064;font-size:12px}.page{padding:50px 0 120px}.eyebrow{color:var(--green);font-size:10px;font-weight:700;letter-spacing:1.5px}h1,h2{font-family:'Manrope',sans-serif;letter-spacing:-1.5px}h1{margin:22px 0;font-size:clamp(38px,5vw,58px)}.lead{max-width:650px;color:var(--muted);font-size:15px;line-height:1.9}.tags{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.tags span{padding:7px 10px;background:#f0f2eb;color:#596153;border-radius:3px;font-size:10px}.placeholder{margin-top:45px;padding:35px;border:1px solid var(--line);border-radius:5px;background:#f5f6f1}.placeholder-label{font-size:9px;letter-spacing:1.3px;color:var(--green);font-weight:700}.placeholder h2{margin:17px 0 12px;font-size:30px}.placeholder p{max-width:650px;color:var(--muted);font-size:13px;line-height:1.9}.button{display:inline-flex;gap:18px;margin-top:15px;padding:13px 17px;background:#26382d;color:white;border-radius:4px;font-size:12px}footer{max-width:1180px;margin:0 auto;padding:27px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:#83877e;font-size:10px}footer .wordmark{color:#20251f}@media(max-width:620px){.nav{padding:20px}nav{gap:15px}nav a{font-size:11px}.nav-link{display:none}main{padding:0 20px}.page{padding:30px 0 80px}.placeholder{padding:24px}footer{padding:25px 20px;flex-wrap:wrap}}
+</style>

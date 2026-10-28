@@ -1,16 +1,246 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const projects = [
+  {
+    number: '01',
+    title: 'Texture Generation with Neural Cellular Automata',
+    category: 'GENERATIVE MODELS',
+    description: 'Learning local update rules for iterative texture generation, with VGG-based perceptual objectives and experiments with Sliced Optimal Transport. Based on Mordvinstev et al. (2021)',
+    tags: ['Generative model', 'Neural Cellular Automata', 'Sliced OT'],
+    kind: 'nca',
+    status: 'PROJECT',
+    href: `${base}/projects/neural-cellular-automata/`,
+    image: `${base}/images/nca/nca-hero.png`,
+  },
+  {
+    number: '02',
+    title: 'White Blood Cell Classification',
+    category: 'MEDICAL IMAGING',
+    description: 'A computer vision project focused on classifying white blood cell images. The dataset is highly imbalanced, which makes the classification task challenging.',
+    tags: ['Computer vision', 'Classification', 'Imbalanced dataset', 'CNN'],
+    kind: 'wbc',
+    status: 'WRITE-UP IN PROGRESS',
+    href: `${base}/#`,
+  },
+  {
+    number: '03',
+    title: 'Waterpixel Segmentation',
+    category: 'IMAGE SEGMENTATION',
+    description: 'An exploration of waterpixel-based image segmentation and region representations.',
+    tags: ['Segmentation', 'Image processing', 'Watershed transform', 'Superpixels'],
+    kind: 'waterpixel',
+    status: 'WRITE-UP IN PROGRESS',
+    href: `${base}/#`,
+  },
+  {
+    number: '04',
+    title: 'Autonomous Mobile Robot',
+    category: 'ROBOTICS',
+    description: 'A camera-equipped wheeled robot built around a Raspberry Pi, developed for a multi-robot relay challenge.',
+    tags: ['Raspberry Pi', 'Perception', 'Control'],
+    kind: 'robot',
+    status: 'WRITE-UP IN PROGRESS',
+    href: `${base}/#`,
+  },
+];
+
+const interests = [
+  'Computer vision',
+  'Geometry processing',
+  'Generative models',
+  'Geometric deep learning',
+  'Robotics',
+  'Physical AI',
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Portfolio | Baptiste Lefebvre"
+  description="Selected projects in machine learning, computer vision, image processing, generative models and robotics."
+>
+  <header class="nav">
+    <a class="wordmark" href={base} aria-label="Home">Baptiste Lefebvre<span>.</span></a>
+    <nav aria-label="Main navigation">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-link" href="https://github.com/baptlef" target="_blank" rel="noreferrer">
+      GitHub <span aria-hidden="true">↗</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="availability-dot"></span>M2 MVA · ENS PARIS-SACLAY (UNIVERSITÉ PARIS-SACLAY)</div>
+        <h1>Exploring new ideas, <span>for real-world impact.</span></h1>
+        <p class="intro">
+          Welcome to my portfolio!
+          I'm Baptiste, a Master's student currently studying at ENS Paris-Saclay (Master MVA), after two years at Télécom Paris. 
+          I am currently looking for a 6-month research internship for April 2027.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+          <a class="button button-light" href="https://github.com/baptlef" target="_blank" rel="noreferrer">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <a class="hero-art" href={`${base}/projects/neural-cellular-automata/`} aria-label="Explore Neural Cellular Automata texture synthesis project">
+        <img class="hero-image" src={`${base}/images/nca/nca-hero2.png`} alt="Generated textures" />
+        <span class="hero-image-label">LATEST PROJECT / NEURAL CELLULAR AUTOMATA</span>
+        <span class="hero-image-caption">RESULTS ON A COUPLE OF TEXTURES</span>
+      </a>
+    </section>
+
+    <section class="interest-strip" aria-label="Research interests">
+      <span class="strip-label">AREAS OF INTEREST</span>
+      <div class="interest-list">{interests.map((interest) => <span>{interest}</span>)}</div>
+    </section>
+
+    <section class="projects section" id="projects">
+      <div class="section-heading">
+        <div><div class="eyebrow">SELECTED WORK · 01—04</div><h2>Projects & experiments<span>.</span></h2></div>
+        <p>Latest projects at the top.</p>
+      </div>
+
+      <div class="project-grid">
+        {projects.map((project) => (
+          <a class="project-card" href={project.href} aria-label={`Read more about ${project.title}`}>
+            <div class={`project-visual ${project.kind}`}>
+              <div class="visual-topline"><span>{project.category}</span><span>{project.number}</span></div>
+              {project.kind === 'nca' && (
+                <img class="project-image" src={project.image} alt="Multi-texture synthesis results from the NCA project" loading="lazy" />
+              )}
+              {project.kind === 'wbc' && (
+                <div class="cell-art" aria-hidden="true">
+                  <span class="cell cell-a"></span><span class="cell cell-b"></span><span class="cell cell-c"></span>
+                  <span class="cell cell-d"></span><span class="cell cell-e"></span>
+                </div>
+              )}
+              {project.kind === 'waterpixel' && (
+                <div class="waterpixel-art" aria-hidden="true"><div class="waterpixel-grid"></div></div>
+              )}
+              {project.kind === 'robot' && (
+                <div class="robot-art" aria-hidden="true">
+                  <div class="robot-signal signal-one"></div><div class="robot-signal signal-two"></div>
+                  <div class="robot-sensor"></div><div class="robot-body"></div>
+                  <div class="robot-wheel wheel-left"></div><div class="robot-wheel wheel-right"></div>
+                </div>
+              )}
+              <span class="visual-status">{project.status}</span>
+            </div>
+            <div class="project-content">
+              <div class="project-number">{project.number} / SELECTED PROJECT</div>
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <div class="tag-list">{project.tags.map((tag) => <span>{tag}</span>)}</div>
+              <span class="card-link">Explore project <span aria-hidden="true">↗</span></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="about section" id="about">
+      <div class="eyebrow">A LITTLE ABOUT ME</div>
+      <div class="about-grid">
+        <h2>From ideas to working systems.</h2>
+        <div class="about-copy">
+          <p>
+            I enjoy understanding how learning algorithms work, implementing them,
+            and testing them on concrete problems. My interests span generative
+            modeling, 3D vision, multimodal AI and robotics.
+          </p>
+          <div class="education-item"><span class="education-year">CURRENT</span><div><a href="https://www.master-mva.com/" target="_blank" rel="noreferrer"><strong>Master MVA (2026-2027) ↗</strong></a><span>ENS Paris-Saclay (Université Paris-Saclay)</span></div></div>
+          <div class="education-item"><span class="education-year">PREVIOUS</span><div><a href="https://www.telecom-paris.fr/" target="_blank" rel="noreferrer"><strong>Master of Science in Engineering (2024-2027) ↗</strong></a><span>Télécom Paris (Institut Polytechnique de Paris)</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div>
+        <div class="eyebrow">GET IN TOUCH</div>
+        <h2>Want to reach out?</h2>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/baptlef" target="_blank" rel="noreferrer">
+          <div class="contact-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            GitHub
+          </div>
+          <span>↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/lefebvrebaptiste" target="_blank" rel="noreferrer">
+          <div class="contact-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </div>
+          <span>↗</span>
+        </a>
+        <a href="#" id="email-link">
+          <div class="contact-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email
+          </div>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer><span></span></footer>
+</BaseLayout>
+
+<style>
+  .nav{max-width:1180px;margin:0 auto;padding:25px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+  .wordmark{font:800 25px 'Manrope',sans-serif;letter-spacing:-2px}.wordmark span,h2 span{color:var(--green)}
+  nav{display:flex;gap:32px}nav a,.nav-link{color:#656961;font-size:13px;transition:color .2s}nav a:hover,.nav-link:hover{color:var(--green)}.nav-link{color:#252923}
+  main{max-width:1180px;margin:0 auto;padding:0 32px}
+  .hero{min-height:530px;padding:80px 0 76px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:70px}
+  .eyebrow{display:flex;align-items:center;gap:9px;color:var(--green);font-size:10px;font-weight:700;letter-spacing:1.6px}
+  .availability-dot{width:7px;height:7px;border-radius:50%;background:#6e9b73;box-shadow:0 0 0 4px #e8eee6}
+  h1,h2,h3,p{margin-top:0}h1,h2{font-family:'Manrope',sans-serif;letter-spacing:-1.9px}
+  h1{max-width:620px;margin:25px 0 22px;font-size:clamp(38px,4.3vw,57px);line-height:1.13;font-weight:600}h1 span{color:#83887e}
+  .intro{max-width:550px;color:var(--muted);font-size:15px;line-height:1.9}
+  .hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}.button{display:inline-flex;align-items:center;gap:18px;padding:13px 17px;border:1px solid transparent;border-radius:5px;font-size:12px;font-weight:600;transition:transform .2s,background .2s}.button:hover{transform:translateY(-2px)}.button-dark{color:white;background:#26382d}.button-dark:hover{background:#3d644c}.button-light{border-color:var(--line);background:#fff}
+  .hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:34px;color:#7a7e76;font-size:11px}.meta-separator{width:3px;height:3px;border-radius:50%;background:#a1a49d}
+  .hero-art{min-height:300px;position:relative;overflow:hidden;display:block;border:1px solid #e4e6dc;border-radius:5px;background:#f0f1e9}.hero-image{display:block;width:100%;height:300px;object-fit:cover}.hero-image-label,.hero-image-caption{position:absolute;left:16px;padding:7px 9px;color:#354b3c;background:#fafaf0e8;font-size:8px;letter-spacing:1px}.hero-image-label{top:16px}.hero-image-caption{bottom:16px}
+  .interest-strip{display:flex;align-items:flex-start;gap:34px;padding:27px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.strip-label{flex-shrink:0;padding-top:5px;color:#83877e;font-size:9px;letter-spacing:1.3px;font-weight:700}.interest-list{display:flex;flex-wrap:wrap;gap:9px}.interest-list span{padding:7px 11px;border:1px solid #e4e6de;border-radius:3px;color:#555d52;background:#fff;font-size:11px}
+  .section{padding:100px 0}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:38px}h2{margin:14px 0 0;font-size:clamp(29px,3.2vw,40px);line-height:1.2}.section-heading>p{max-width:330px;margin-bottom:4px;color:var(--muted);font-size:13px;line-height:1.8}
+  .project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.project-card{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:5px;background:#fff;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.project-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px #2529230a}.project-card:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+  .project-visual{height:245px;position:relative;overflow:hidden}.nca{background:#edf0e5}.wbc{background:#f2edf0}.waterpixel{background:#e9eeed}.robot{background:#f0ece4}
+  .visual-topline{position:absolute;z-index:3;top:15px;left:15px;right:15px;display:flex;justify-content:space-between;color:#64705f;font-size:8px;letter-spacing:1.1px}.visual-status{position:absolute;z-index:4;right:12px;bottom:12px;padding:5px 7px;border:1px solid #d6dbcf;border-radius:2px;color:#5c6a57;background:#fafbf5e8;font-size:8px;letter-spacing:.7px}
+  .project-image{display:block;width:100%;height:100%;object-fit:contain;padding:40px 22px 25px}
+  .cell-art{position:absolute;inset:45px 35px 28px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}.cell{display:block;width:70px;height:70px;border-radius:50%;border:5px solid #d8b9d1;background:radial-gradient(circle at 45% 45%,#775b8b 0 9%,#a78bb6 10% 35%,#6d507f 36% 60%,#e7dce6 61%);box-shadow:inset 0 0 0 5px #b49bbd,0 8px 18px #775b8b24}.cell-b{width:55px;height:55px;transform:rotate(22deg);background:radial-gradient(circle,#b0a1c7 0 20%,#6f8e9a 21% 60%,#d7c9de 61%)}.cell-c{width:62px;height:62px;background:radial-gradient(circle at 55% 45%,#8a6b9d 0 8%,#d0b7d3 9% 30%,#715582 31% 63%,#e4d3e4 64%)}.cell-d{width:48px;height:48px;background:radial-gradient(circle,#6f527f 0 25%,#b9a4c5 26% 62%,#e7dbe7 63%)}.cell-e{width:60px;height:60px;background:radial-gradient(circle,#b8a0c6 0 18%,#79618c 19% 52%,#d9c9df 53%)}
+  .waterpixel-art{position:absolute;inset:46px 26px 28px;overflow:hidden;background:#dce8e4;border:1px solid #c6d7d0}.waterpixel-grid{position:absolute;inset:0;background-image:linear-gradient(25deg,transparent 47%,#779d94 48%,#779d94 50%,transparent 51%),linear-gradient(145deg,transparent 47%,#779d94 48%,#779d94 50%,transparent 51%),linear-gradient(90deg,transparent 48%,#779d94 49%,#779d94 50%,transparent 51%);background-size:34px 30px}.waterpixel-art span{position:absolute;bottom:8px;right:8px;background:#f8faf6dd;padding:5px;color:#486c62;font-size:8px;letter-spacing:1px}
+  .robot-art{position:absolute;inset:0}.robot-body{position:absolute;top:99px;left:50%;width:110px;height:68px;border:1px solid #817d6b;border-radius:10px 10px 5px 5px;background:linear-gradient(145deg,#e6e0ce,#aaa58f);box-shadow:0 10px 18px #726d5b22;transform:translateX(-50%) rotate(-5deg)}.robot-sensor{position:absolute;z-index:2;top:75px;left:50%;width:36px;height:30px;border:1px solid #797c70;border-radius:4px;background:#333f3c;transform:translateX(-50%)}.robot-sensor:after{content:'';position:absolute;top:8px;left:10px;width:12px;height:12px;border-radius:50%;background:#91b5a0;box-shadow:0 0 12px #91b5a0}.robot-wheel{position:absolute;top:130px;width:17px;height:45px;border-radius:4px;background:#55594e}.wheel-left{left:calc(50% - 63px)}.wheel-right{left:calc(50% + 46px)}.robot-signal{position:absolute;top:70px;left:50%;border:1px solid #9b9b7f;border-radius:50%;transform:translateX(-50%)}.signal-one{width:85px;height:60px}.signal-two{width:135px;height:90px}
+  .project-content{padding:22px 22px 20px;display:flex;flex-direction:column;flex:1}.project-number{color:#85897f;font-size:9px;letter-spacing:1px}h3{margin:12px 0 10px;font:600 19px 'Manrope',sans-serif;letter-spacing:-.5px}.project-content>p{flex:1;min-height:78px;margin-bottom:20px;color:var(--muted);font-size:12px;line-height:1.85}.tag-list{display:flex;flex-wrap:wrap;gap:6px}.tag-list span{padding:6px 8px;border-radius:3px;background:#f2f3ee;color:#596153;font-size:9px}.card-link{display:flex;justify-content:space-between;margin-top:22px;padding-top:13px;border-top:1px solid #eff0eb;color:#385d45;font-size:11px;font-weight:600}
+  .about{border-top:1px solid var(--line)}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-top:24px}.about-grid h2{max-width:420px;font-size:clamp(32px,4vw,45px)}.about-copy>p{color:var(--muted);font-size:13px;line-height:1.9}.education-item{display:grid;grid-template-columns:85px 1fr;gap:15px;padding:19px 0;border-bottom:1px solid var(--line)}.education-year{padding-top:3px;color:#85897f;font-size:9px;letter-spacing:1px}.education-item strong,.education-item div>span{display:block}.education-item strong{font-size:13px;font-weight:600}.education-item div>span{margin-top:5px;color:var(--muted);font-size:11px}
+  .contact{display:flex;justify-content:space-between;align-items:end;gap:30px;padding:44px;border:1px solid #e1e5db;border-radius:5px;background:#f0f2eb}.contact h2{max-width:490px;font-size:clamp(27px,3vw,36px)}.contact p{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.8}
+  .contact-links{display:flex;flex-direction:row;gap:48px;min-width:240px}
+  .contact-links a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:6px;border-bottom:1px solid #d9ddd2;font-size:20px}
+  .contact-links a:hover{color:var(--green)}
+  .contact-label{display:flex;align-items:center;gap:10px;}
+  .contact-label svg{width:1em;height:1em;}
+  footer{max-width:1180px;margin:0 auto;padding:27px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:#83877e;font-size:10px}footer .wordmark{color:#20251f}
+  @media(max-width:850px){.hero{grid-template-columns:1fr .8fr;gap:28px;padding:65px 0}.hero-art,.hero-image{min-height:300px;height:300px}.about-grid{gap:40px}}
+  @media(max-width:620px){.nav{padding:20px}nav{gap:15px}nav a{font-size:11px}.nav-link{display:none}main{padding:0 20px}.hero{grid-template-columns:1fr;gap:35px;padding:58px 0}h1{font-size:42px}.hero-art,.hero-image{min-height:270px;height:270px}.interest-strip{flex-direction:column;gap:15px}.section{padding:70px 0}.section-heading{align-items:flex-start;flex-direction:column;gap:12px}.project-grid{grid-template-columns:1fr}.project-visual{height:235px}.project-content>p{min-height:0}.about-grid{grid-template-columns:1fr;gap:25px}.contact{flex-direction:column;align-items:stretch;padding:26px 22px}.contact-links{margin-top:8px}footer{padding:25px 20px;flex-wrap:wrap}}
+</style>
+
+<script>
+  const user = "baptiste.lefebvre";
+  const domain = "polytechnique.edu";
+  const emailLink = document.getElementById("email-link");
+  
+  if (emailLink) {
+    emailLink.addEventListener("mouseenter", () => {
+      emailLink.setAttribute("href", `mailto:${user}@${domain}`);
+    });
+  }
+</script>
